@@ -1,0 +1,9 @@
+<div>
+    <h1>Employees List</h1>
+    <input type="text" [(ngModel)]="name">
+    {{name}}
+    <ul *ngFor="let employee of employees">
+        <li *ngIf="hidename">{{employee.name}}</li>
+    </ul>
+    <button (click)="hidenamefun()">Hide/Show Name</button>
+</div>
