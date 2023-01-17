@@ -1,0 +1,37 @@
+[
+    {
+        "pid": "P100",
+        "pname": "Laptop",
+        "price": 23000
+    },
+    {
+        "pid": "P200",
+        "pname": "Keyboard",
+        "price": 300
+    },
+    {
+        "pid": "P300",
+        "pname": "Printer",
+        "price": 15000
+    },
+    {
+        "pid": "P400",
+        "pname": "Mouse",
+        "price": 2000
+    },
+    {
+        "pid": "P500",
+        "pname": "Headphones",
+        "price": 12000
+    },
+    {
+        "pid": "P600",
+        "pname": "Scanner",
+        "price": 20000
+    },
+    {
+        "pid": "P700",
+        "pname": "Bluetooth",
+        "price": 6700
+    }
+]

@@ -1,37 +1,117 @@
 var express = require('express');
-
 var router = express.Router();
 
-var products = [
+//step 1:
+var mongodb = require('mongodb');
 
-    { "pid": "P100", "pname": "Laptop", "price": 23000 },
+//step 2:
+var mongoClient = mongodb.MongoClient;
 
-    { "pid": "P200", "pname": "Keyboard", "price": 300 },
+//step 3 :
+var mongourl = "mongodb://127.0.0.1:27017";
 
-    { "pid": "P300", "pname": "Printer", "price": 15000 },
+//step 4:
+var mydb = "cnsdecob";
 
-    { "pid": "P400", "pname": "Mouse", "price": 2000 },
+// var products = [
+//     { "pid": "P100", "pname": "Laptop", "price": 23000 },
+//     { "pid": "P200", "pname": "Keyboard", "price": 300 },
+//     { "pid": "P300", "pname": "Printer", "price": 15000 },
+//     { "pid": "P400", "pname": "Mouse", "price": 2000 },
+//     { "pid": "P500", "pname": "Headphones", "price": 12000 },
+//     { "pid": "P600", "pname": "Scanner", "price": 20000 },
+//     { "pid": "P700", "pname": "Bluetooth", "price": 6700 }
+// ];
 
-    { "pid": "P500", "pname": "Headphones", "price": 12000 },
-
-    { "pid": "P600", "pname": "Scanner", "price": 20000 },
-
-    { "pid": "P700", "pname": "Bluetooth", "price": 6700 }
-
-];
+var products = [];
 
 /* GET productts service  listing. */
 
 router.get('/', function (req, res, next) {
-
     res.send('This is products service');
-
 });
 
+//Products endpoint : To fetch all products
+
+//http://localhost:3000/products/allproducts
 
 router.get('/allproducts', (req, res, next) => {
+
+    //res.send(products);
+
+    //or
+
+
+
+    //after db integration
+
+    mongoClient.connect(mongourl, (err, client) => {
+
+        if (err)
+
+            console.log("Error in connecting to the database");
+
+        else {
+
+
+
+            console.log("Connection to the database is successful");
+
+            const cnsdb = client.db(mydb);
+
+            //insert one document in the products collection
+
+            const insertdoc = { "pid": "P800", "pname": "Projector", "price": 25000 };
+
+            //perform insert operation
+
+            //--------------------------
+
+            // cnsdb.collection('products').insertOne(insertdoc,(err,result)=>{
+
+            //     if(err)
+
+            //         console.log("Error in insertion"+ err);
+
+            //     else
+
+            //         console.log("Document inserted"+ JSON.stringify(result));
+
+            // });
+
+
+
+            //find the documnets
+
+            //-------------------
+
+
+
+            cnsdb.collection('products').find({}).toArray((err, result) => {
+
+                if (err)
+
+                    console.log(err);
+
+                else {
+
+                    products = result;
+
+                    console.log(result);
+
+                }
+
+            })
+
+            //client.close();
+
+        }
+
+    });
+
     res.json(products);
-})
+
+});
 
 router.get('/productbyid/:id', (req, res, next) => {
     var prodid = req.params.id;
